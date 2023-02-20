@@ -179,12 +179,12 @@
                     </a>
                 </div>
                 <div class="col-auto col-xl-3 pl-3 pr-3 d-flex align-items-center">
-                    <a class="d-block py-20px mr-3 ml-0" href="{{ route('home') }}">
+                    <a class="d-block py-1 mr-3 ml-0" href="{{ route('home') }}">
                         @php
                             $header_logo = get_setting('header_logo');
                         @endphp
                         @if($header_logo != null)
-                            <img src="{{ uploaded_asset($header_logo) }}" alt="{{ env('APP_NAME') }}" class="mw-100 h-30px h-md-40px" height="40">
+                            <img src="{{ uploaded_asset($header_logo) }}" alt="{{ env('APP_NAME') }}" class="mw-100 h-60px h-md-70px">
                         @else
                             <img src="{{ static_asset('assets/img/logo.png') }}" alt="{{ env('APP_NAME') }}" class="mw-100 h-30px h-md-40px" height="40">
                         @endif

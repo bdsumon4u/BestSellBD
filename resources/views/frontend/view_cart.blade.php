@@ -144,10 +144,10 @@
                                                         <span class="opacity-60">{{ translate('Thana') }}:</span>
                                                         <span class="fw-600 ml-2">{{ optional($address->city)->name }}</span>
                                                     </div>
-                                                    {{-- <div>
+                                                    <div>
                                                         <span class="opacity-60">{{ translate('District') }}:</span>
                                                         <span class="fw-600 ml-2">{{ optional($address->state)->name }}</span>
-                                                    </div> --}}
+                                                    </div>
                                                     {{-- <div>
                                                         <span class="opacity-60">{{ translate('Country') }}:</span>
                                                         <span class="fw-600 ml-2">{{ optional($address->country)->name }}</span>
@@ -199,7 +199,7 @@
                                                     <input type="text" class="form-control mb-3" placeholder="{{ translate('+880')}}" name="phone" value="" required>
                                                 </div>
                                             </div>
-                                            {{-- <div class="row d-none">
+                                            <div class="row d-none">
                                                 <div class="col-md-2">
                                                     <label>{{ translate('Country')}}</label>
                                                 </div>
@@ -215,7 +215,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="row d-none">
+                                            <div class="row">
                                                 <div class="col-md-2">
                                                     <label>{{ translate('District')}}</label>
                                                 </div>
@@ -224,7 +224,7 @@
 
                                                     </select>
                                                 </div>
-                                            </div> --}}
+                                            </div>
 
                                             <div class="row">
                                                 <div class="col-md-2">
@@ -232,10 +232,7 @@
                                                 </div>
                                                 <div class="col-md-10">
                                                     <select class="form-control mb-3 aiz-selectpicker" data-live-search="true" name="city_id" required>
-                                                        <option value="">{{ translate('Select your city') }}</option>
-                                                        @foreach (\App\Models\City::where('status', 1)->get() as $key => $city)
-                                                            <option value="{{ $city->id }}">{{ $city->name }}</option>
-                                                        @endforeach
+                                                        
                                                     </select>
                                                 </div>
                                             </div>
@@ -474,7 +471,7 @@
                                 <input type="text" class="form-control mb-3" placeholder="{{ translate('+880')}}" name="phone" value="" required>
                             </div>
                         </div>
-                        {{-- <div class="row d-none">
+                        <div class="row d-none">
                             <div class="col-md-2">
                                 <label>{{ translate('Country')}}</label>
                             </div>
@@ -499,7 +496,7 @@
 
                                 </select>
                             </div>
-                        </div> --}}
+                        </div>
 
                         <div class="row">
                             <div class="col-md-2">
@@ -507,10 +504,7 @@
                             </div>
                             <div class="col-md-10">
                                 <select class="form-control mb-3 aiz-selectpicker" data-live-search="true" name="city_id" required>
-                                    <option value="">{{ translate('Select your thana') }}</option>
-                                    @foreach (\App\Models\City::where('status', 1)->get() as $key => $city)
-                                        <option value="{{ $city->id }}">{{ $city->name }}</option>
-                                    @endforeach
+                                    
                                 </select>
                             </div>
                         </div>
@@ -706,6 +700,7 @@
                 },
                 success: function (response) {
                     var obj = JSON.parse(response);
+                    console.log(obj)
                     if(obj != '') {
                         $('[name="city_id"]').html(obj);
                         AIZ.plugins.bootstrapSelect('refresh');

@@ -31,6 +31,8 @@ class ProductRequest extends FormRequest
             'unit_price'    => 'required|numeric',
             'discount'      => 'required|numeric|lt:unit_price',
             'current_stock' => 'required|numeric',
+            'colors_active' => 'boolean',
+            'colors'        => 'required_if:colors_active,1',
         ];
     }
 
@@ -54,6 +56,7 @@ class ProductRequest extends FormRequest
             'discount.lt:unit_price'    => 'Discount can not be gretaer than unit price',
             'current_stock.required'    => 'Current stock is required',
             'current_stock.numeric'     => 'Current stock must be numeric',
+            'colors.required_if'        => 'Colors option is enabled. But you haven\'t selected any color',
         ];
     }
 }

@@ -3,6 +3,38 @@
         <i class="las la-check-circle la-3x"></i>
         <h3>{{ translate('Item added to your cart!')}}</h3>
     </div>
+    <script>
+    @php
+        $ecommerce = [
+            'currency' => 'BDT',
+            'value' => $data['price'],
+            'discount' => $product->discount,
+            'items' => [
+                [
+                    'item_id' => $product->id,
+                    'item_name' => $product->name,
+                    'affiliation' => request()->getHttpHost(),
+                    'coupon' => '',
+                    'discount' => $product->discount,
+                    'index' => 0,
+                    'item_brand' => $product->brand->name ?? '',
+                    'item_category' => $product->category->name ?? '',
+                    'item_category2' => '',
+                    'item_category3' => '',
+                    'item_category4' => '',
+                    'item_category5' => '',
+                    'item_list_id' => '',
+                    'item_list_name' => '',
+                    'item_variant' => '',
+                    'location_id' => '',
+                    'price' => $product->price,
+                    'quantity' => $data['quantity'] ?? 1,
+                ]
+            ],
+        ];
+    @endphp
+        window.dataLayer.push({!! json_encode(['event' => 'add_to_cart', 'ecommerce' => $ecommerce]) !!});
+    </script>
     <div class="media mb-4">
         <img src="{{ static_asset('assets/img/placeholder.jpg') }}" data-src="{{ uploaded_asset($product->thumbnail_img) }}" class="mr-3 lazyload size-100px img-fit rounded" alt="Product Image">
         <div class="media-body pt-3 text-left">

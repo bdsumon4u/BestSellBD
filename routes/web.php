@@ -46,6 +46,7 @@ use App\Http\Controllers\Payment\PaykuController;
 use App\Http\Controllers\ProductQueryController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\WishlistController;
+use App\Models\CombinedOrder;
 
 /*
   |--------------------------------------------------------------------------

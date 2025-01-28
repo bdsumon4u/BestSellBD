@@ -109,15 +109,7 @@
     </style>
 
 @if (get_setting('google_analytics') == 1)
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('TRACKING_ID') }}"></script>
-
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', '{{ env('TRACKING_ID') }}');
-    </script>
+    @include('googletagmanager::head')
 @else
 @endif
 
@@ -147,6 +139,7 @@
 
 </head>
 <body>
+    @include('googletagmanager::body')
     <!-- aiz-main-wrapper -->
     <div class="aiz-main-wrapper d-flex flex-column">
 

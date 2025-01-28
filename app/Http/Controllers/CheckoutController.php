@@ -20,6 +20,7 @@ use App\Utility\PayhereUtility;
 use App\Utility\NotificationUtility;
 use Session;
 use Auth;
+use Spatie\GoogleTagManager\GoogleTagManagerFacade;
 
 class CheckoutController extends Controller
 {
@@ -394,6 +395,46 @@ class CheckoutController extends Controller
         foreach($combined_order->orders as $order){
             NotificationUtility::sendOrderPlacedNotification($order);
         }
+
+        $order = $combined_order->orders->first();
+        $shipping_cost = 0;
+        $items = $order->orderDetails->map(function($orderDetail, $i) use (&$shipping_cost) {
+            $shipping_cost += $orderDetail->shipping_cost;
+            return [
+                'item_id' => $orderDetail->order_id,
+                'item_name' => $orderDetail->product->name,
+                'affiliation' => request()->getHttpHost(),
+                'coupon' => '',
+                'discount' => 0,
+                'index' => $i,
+                'item_brand' => $orderDetail->product->brand->name ?? '',
+                'item_category' => $orderDetail->product->category->name ?? '',
+                'item_category2' => '',
+                'item_category3' => '',
+                'item_category4' => '',
+                'item_category5' => '',
+                'item_list_id' => '',
+                'item_list_name' => '',
+                'item_variant' => '',
+                'location_id' => '',
+                'price' => $orderDetail->price,
+                'quantity' => $orderDetail->quantity,
+            ];
+        })->values()->toArray();
+        $ecommerce = [
+            'currency' => 'BDT',
+            'value' => $order->grand_total,
+            'transaction_id' => $order->order_id,
+            'coupon' => '',
+            'shipping' => $shipping_cost,
+            'tax' => 0,
+            'items' => $items,
+        ];
+        
+        GoogleTagManagerFacade::push([
+            'ecommerce' => $ecommerce,
+            'event' => 'purchase',
+        ]);
 
         return view('frontend.order_confirmed', compact('combined_order'));
     }

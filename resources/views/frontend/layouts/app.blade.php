@@ -118,6 +118,7 @@
         gtag('js', new Date());
         gtag('config', '{{ env('TRACKING_ID') }}');
     </script>
+@else
 @endif
 
 @if (get_setting('facebook_pixel') == 1)

@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Auth\Events\PasswordReset;
 use App\Mail\SecondEmailVerifyMailManager;
+use Spatie\GoogleTagManager\GoogleTagManagerFacade;
 
 class HomeController extends Controller
 {
@@ -250,6 +251,39 @@ class HomeController extends Controller
                 $affiliateController = new AffiliateController;
                 $affiliateController->processAffiliateStats($referred_by_user->id, 1, 0, 0, 0);
             }
+
+            $ecommerce = [
+                'currency' => 'BDT',
+                'value' => $detailedProduct->unit_price,
+                'items' => [
+                    [
+                        'item_id' => $detailedProduct->id,
+                        'item_name' => $detailedProduct->name,
+                        'affiliation' => request()->getHttpHost(),
+                        'coupon' => '',
+                        'discount' => 0,
+                        'index' => 0,
+                        'item_brand' => $detailedProduct->brand->name ?? '',
+                        'item_category' => $detailedProduct->category->name ?? '',
+                        'item_category2' => '',
+                        'item_category3' => '',
+                        'item_category4' => '',
+                        'item_category5' => '',
+                        'item_list_id' => '',
+                        'item_list_name' => '',
+                        'item_variant' => '',
+                        'location_id' => '',
+                        'price' => $detailedProduct->unit_price,
+                        'quantity' => 1,
+                    ]
+                ],
+            ];
+
+            GoogleTagManagerFacade::push([
+                'event' => 'view_item',
+                'ecommerce' => $ecommerce,
+            ]);
+
             if ($detailedProduct->digital == 1) {
                 return view('frontend.digital_product_details', compact('detailedProduct', 'product_queries', 'total_query'));
             } else {

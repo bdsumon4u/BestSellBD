@@ -431,9 +431,15 @@ class CheckoutController extends Controller
             'items' => $items,
         ];
         
+        $customerData = json_decode($combined_order->shipping_address, true);
         GoogleTagManagerFacade::push([
             'ecommerce' => $ecommerce,
             'event' => 'purchase',
+            'customer' => $customerData + [
+                'user_id' => $combined_order->user_id,
+                'first_name' => explode(' ', $customerData['name'], 2)[0] ?? '',
+                'last_name' => explode(' ', $customerData['name'], 2)[1] ?? '',
+            ],
         ]);
 
         return view('frontend.order_confirmed', compact('combined_order'));

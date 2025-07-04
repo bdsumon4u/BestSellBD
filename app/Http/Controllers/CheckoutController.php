@@ -44,7 +44,7 @@ class CheckoutController extends Controller
         // Minumum order amount check
         if(get_setting('minimum_order_amount_check') == 1){
             $subtotal = 0;
-            foreach ($this->cart()->get() as $key => $cartItem){ 
+            foreach ($this->cart()->get() as $key => $cartItem){
                 $product = Product::find($cartItem['product_id']);
                 $subtotal += cart_product_price($cartItem, $product, false, false) * $cartItem['quantity'];
             }
@@ -54,12 +54,12 @@ class CheckoutController extends Controller
             }
         }
         // Minumum order amount check end
-        
+
         if ($request->payment_option != null) {
             (new OrderController)->store($request);
 
             $request->session()->put('payment_type', 'cart_payment');
-            
+
             $data['combined_order_id'] = $request->session()->get('combined_order_id');
             $request->session()->put('payment_data', $data);
 
@@ -166,7 +166,7 @@ class CheckoutController extends Controller
             })->orWhere('free_shipping', 1);
             $carrier_list = $carrier_query->get();
         }
-        
+
         return view('frontend.delivery_info', compact('carts','carrier_list'));
     }
 
@@ -175,8 +175,8 @@ class CheckoutController extends Controller
         $rules = [
             'name' => 'required',
             'address' => 'required',
-            // 'country_id' => 'required|integer',
-            // 'state_id' => 'required|integer',
+            'country_id' => 'required|integer',
+            'state_id' => 'required|integer',
             'city_id' => 'required|integer',
             'postal_code' => 'nullable',
             'phone' => 'required',
@@ -192,7 +192,8 @@ class CheckoutController extends Controller
         if ($request->address_id == null) {
             $address = $request->validate($rules);
             $address['country_id'] = Country::where('name', 'Bangladesh')->first()->id ?? null;
-            $address['state_id'] = State::where('name', 'Default')->first()->id ?? null;
+            // $address['state_id'] = State::where('name', 'Default')->first()->id ?? null;
+            $address['state_id'] = $request->state_id;
         } else {
             $address = data_get(
                 Address::findOrFail($request->address_id)->toArray(),
@@ -265,12 +266,12 @@ class CheckoutController extends Controller
                                     ->get();
 
                     $coupon_discount = 0;
-                    
+
                     if ($coupon->type == 'cart_base') {
                         $subtotal = 0;
                         $tax = 0;
                         $shipping = 0;
-                        foreach ($carts as $key => $cartItem) { 
+                        foreach ($carts as $key => $cartItem) {
                             $product = Product::find($cartItem['product_id']);
                             $subtotal += cart_product_price($cartItem, $product, false, false) * $cartItem['quantity'];
                             $tax += cart_product_tax($cartItem, $product,false) * $cartItem['quantity'];
@@ -289,7 +290,7 @@ class CheckoutController extends Controller
 
                         }
                     } elseif ($coupon->type == 'product_base') {
-                        foreach ($carts as $key => $cartItem) { 
+                        foreach ($carts as $key => $cartItem) {
                             $product = Product::find($cartItem['product_id']);
                             foreach ($coupon_details as $key => $coupon_detail) {
                                 if ($coupon_detail->product_id == $cartItem['product_id']) {
@@ -320,7 +321,7 @@ class CheckoutController extends Controller
                         $response_message['response'] = 'warning';
                         $response_message['message'] = translate('This coupon is not applicable to your cart products!');
                     }
-                    
+
                 } else {
                     $response_message['response'] = 'warning';
                     $response_message['message'] = translate('You already used this coupon!');
@@ -391,7 +392,7 @@ class CheckoutController extends Controller
 
         //Session::forget('club_point');
         //Session::forget('combined_order_id');
-        
+
         foreach($combined_order->orders as $order){
             NotificationUtility::sendOrderPlacedNotification($order);
         }
@@ -430,7 +431,7 @@ class CheckoutController extends Controller
             'tax' => 0,
             'items' => $items,
         ];
-        
+
         $customerData = json_decode($combined_order->shipping_address, true);
         GoogleTagManagerFacade::push([
             'ecommerce' => $ecommerce,

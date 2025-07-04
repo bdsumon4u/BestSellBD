@@ -183,57 +183,67 @@
                                 @else
                                     <div class="shadow-sm bg-white rounded mb-4">
                                         <div class="p-3">
-                                            <div class="row">
+                                            <div class="row mb-3">
                                                 <div class="col-md-2">
                                                     <label>{{ translate('Name')}}</label>
                                                 </div>
                                                 <div class="col-md-10">
-                                                    <input type="text" class="form-control mb-3" id="name" name="name" required>
+                                                    <input type="text" class="form-control" id="name" name="name" required>
+                                                    {{-- Bootstrap invalid-feedback for Name --}}
+                                                    <div class="invalid-feedback"></div>
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <div class="row mb-3">
                                                 <div class="col-md-2">
                                                     <label>{{ translate('Phone')}}</label>
                                                 </div>
                                                 <div class="col-md-10">
-                                                    <input type="text" class="form-control mb-3" placeholder="{{ translate('+880')}}" name="phone" value="" required>
+                                                    <input type="text" class="form-control" placeholder="{{ translate('01')}}" name="phone" value="" required>
+                                                    {{-- Bootstrap invalid-feedback for Phone --}}
+                                                    <div class="invalid-feedback"></div>
                                                 </div>
                                             </div>
-                                            <div class="row d-none">
+                                            <div class="row mb-3 d-none">
                                                 <div class="col-md-2">
                                                     <label>{{ translate('Country')}}</label>
                                                 </div>
                                                 <div class="col-md-10">
-                                                    <div class="mb-3">
-                                                        <select class="form-control aiz-selectpicker" data-live-search="true" data-placeholder="{{ translate('Select your country') }}" name="country_id" required>
-                                                            <option value="">{{ translate('Select your country') }}</option>
-                                                            @foreach (\App\Models\Country::where('status', 1)->get() as $key => $country)
-                                                                <option value="{{ $country->id }}" @if($country->name == 'Bangladesh') selected @endif>{{ $country->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
+                                                    <select class="form-control aiz-selectpicker" data-live-search="true" data-placeholder="{{ translate('Select your country') }}" name="country_id" required>
+                                                        <option value="">{{ translate('Select your country') }}</option>
+                                                        @foreach (\App\Models\Country::where('status', 1)->get() as $key => $country)
+                                                            <option value="{{ $country->id }}" @if($country->name == 'Bangladesh') selected @endif>{{ $country->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    {{-- Bootstrap invalid-feedback for Country --}}
+                                                    <div class="invalid-feedback"></div>
                                                 </div>
                                             </div>
 
-                                            <div class="row">
+                                            <div class="row mb-3">
                                                 <div class="col-md-2">
-                                                    <label>{{ translate('District')}}</label>
+                                                    <label>{{ translate('District a')}}</label>
                                                 </div>
                                                 <div class="col-md-10">
-                                                    <select class="form-control mb-3 aiz-selectpicker" data-live-search="true" name="state_id" required>
-
+                                                    <select class="form-control aiz-selectpicker" data-live-search="true" name="state_id" required>
+                                                        {{-- <option value="">{{ translate('Select District') }}</option> --}}
+                                                        {{-- Options will be loaded by JS --}}
                                                     </select>
+                                                    {{-- Bootstrap invalid-feedback for District (state_id) --}}
+                                                    <div class="invalid-feedback"></div>
                                                 </div>
                                             </div>
 
-                                            <div class="row">
+                                            <div class="row mb-3">
                                                 <div class="col-md-2">
                                                     <label>{{ translate('Thana')}}</label>
                                                 </div>
                                                 <div class="col-md-10">
-                                                    <select class="form-control mb-3 aiz-selectpicker" data-live-search="true" name="city_id" required>
-                                                        
+                                                    <select class="form-control aiz-selectpicker" data-live-search="true" name="city_id" required>
+                                                        {{-- <option value="">{{ translate('Select Thana') }}</option> --}}
+                                                        {{-- Options will be loaded by JS --}}
                                                     </select>
+                                                    {{-- Bootstrap invalid-feedback for Thana (city_id) --}}
+                                                    <div class="invalid-feedback"></div>
                                                 </div>
                                             </div>
 
@@ -251,18 +261,18 @@
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-2" id="">
+                                                    <div class="col-md-2">
                                                         <label for="exampleInputuname">Longitude</label>
                                                     </div>
-                                                    <div class="col-md-10" id="">
+                                                    <div class="col-md-10">
                                                         <input type="text" class="form-control mb-3" id="longitude" name="longitude" readonly="">
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-2" id="">
+                                                    <div class="col-md-2">
                                                         <label for="exampleInputuname">Latitude</label>
                                                     </div>
-                                                    <div class="col-md-10" id="">
+                                                    <div class="col-md-10">
                                                         <input type="text" class="form-control mb-3" id="latitude" name="latitude" readonly="">
                                                     </div>
                                                 </div>
@@ -270,20 +280,32 @@
 
                                             <input type="hidden" class="form-control mb-3" name="postal_code" value="">
 
-                                            <div class="row">
+                                            <div class="row mb-3">
                                                 <div class="col-md-2">
                                                     <label>{{ translate('Address')}}</label>
                                                 </div>
                                                 <div class="col-md-10">
-                                                    <textarea class="form-control mb-3" placeholder="{{ translate('Your Address')}}" rows="2" name="address" required></textarea>
+                                                    <textarea class="form-control" placeholder="{{ translate('Your Address')}}" rows="2" name="address" required></textarea>
+                                                    {{-- Bootstrap invalid-feedback for Address --}}
+                                                    <div class="invalid-feedback"></div>
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <div class="row mb-3">
                                                 <div class="col-md-2">
                                                     <label>{{ translate('Any additional info?') }}</label>
                                                 </div>
                                                 <div class="col-md-10">
                                                     <textarea name="additional_info" rows="5" class="form-control" placeholder="{{ translate('Type your text') }}"></textarea>
+                                                </div>
+                                            </div>
+                                            {{-- Terms and Conditions checkbox (assuming it's part of the form) --}}
+                                            <div class="row mb-3">
+                                                <div class="col-md-12">
+                                                    <div class="form-check">
+                                                        <input type="checkbox" class="form-check-input" id="agree_checkbox" checked>
+                                                        <label class="form-check-label" for="agree_checkbox">{{ translate('I agree with the') }} <a href="#">{{ translate('Terms and Conditions') }}</a></label>
+                                                        <div class="invalid-feedback"></div> {{-- Bootstrap invalid-feedback for checkbox --}}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -468,7 +490,7 @@
                                 <label>{{ translate('Phone')}}</label>
                             </div>
                             <div class="col-md-10">
-                                <input type="text" class="form-control mb-3" placeholder="{{ translate('+880')}}" name="phone" value="" required>
+                                <input type="text" class="form-control mb-3" placeholder="{{ translate('01')}}" name="phone" value="" required>
                             </div>
                         </div>
                         <div class="row d-none">
@@ -489,7 +511,7 @@
 
                         <div class="row">
                             <div class="col-md-2">
-                                <label>{{ translate('District')}}</label>
+                                <label>{{ translate('District b')}}</label>
                             </div>
                             <div class="col-md-10">
                                 <select class="form-control mb-3 aiz-selectpicker" data-live-search="true" name="state_id" required>
@@ -504,7 +526,7 @@
                             </div>
                             <div class="col-md-10">
                                 <select class="form-control mb-3 aiz-selectpicker" data-live-search="true" name="city_id" required>
-                                    
+
                                 </select>
                             </div>
                         </div>
@@ -590,26 +612,105 @@
         var minimum_order_amount =
             {{ get_setting('minimum_order_amount_check') == 1 ? get_setting('minimum_order_amount') : 0 }};
 
+        // Function to show individual field errors using Bootstrap classes
+        function showFieldError(fieldElement, message) {
+            var $el = $(fieldElement);
+            if ($el.hasClass('aiz-selectpicker')) {
+                $el = $el.parent();
+            }
+            $el.addClass('is-invalid').next('.invalid-feedback').text(message).show();
+        }
+
+        // Function to clear all field errors using Bootstrap classes
+        function clearFieldErrors() {
+            $('.form-control, .form-check-input').removeClass('is-invalid');
+            $('.invalid-feedback').text('').hide();
+        }
+
+        function validatePhoneNumber() {
+            // Validate Phone
+            const phoneInput = $('input[name="phone"]');
+            const phoneNumber = phoneInput.val().trim();
+
+            // Regex to match exactly 11 digits starting with '01' (e.g., 01XXXXXXXXX)
+            const phoneRegex = /^01\d{9}$/;
+
+            if (phoneNumber === '') {
+                showFieldError(phoneInput, '{{ translate('Please enter your phone number.') }}');
+                isValid = false;
+            } else if (!phoneRegex.test(phoneNumber)) {
+                showFieldError(phoneInput, '{{ translate('Please enter a valid 11-digit phone number.') }}');
+                isValid = false;
+            }
+        }
+
+        $('input[name="phone"]').on('keyup', validatePhoneNumber);
+
         function submitOrder(el) {
             $(el).prop('disabled', true);
-            if ($('#agree_checkbox').is(":checked")) {
-                if (minimum_order_amount_check && $('#sub_total').val() < minimum_order_amount) {
-                    AIZ.plugins.notify('danger',
-                        '{{ translate('You order amount is less then the minimum order amount') }}');
-                } else {
-                    var offline_payment_active = '{{ addon_is_activated('offline_payment') }}';
-                    if (offline_payment_active == 'true' && $('.offline_payment_option').is(":checked") && $('#trx_id')
-                        .val() == '') {
-                        AIZ.plugins.notify('danger',
-                            '{{ translate('You need to put Transaction id') }}');
-                        $(el).prop('disabled', false);
-                    } else {
-                        $('#checkout-form').submit();
-                    }
-                }
-            } else {
-                AIZ.plugins.notify('danger', '{{ translate('You need to agree with our policies') }}');
+            clearFieldErrors(); // Clear previous errors
+
+            let isValid = true; // Flag to track overall form validity
+
+            // Validate Name
+            const nameInput = $('#name');
+            if (nameInput.val().trim() === '') {
+                showFieldError(nameInput, '{{ translate('Please enter your name.') }}');
+                isValid = false;
+            }
+
+            validatePhoneNumber();
+
+            // Validate Country (if it becomes visible and required)
+            const countrySelect = $('select[name="country_id"]');
+            if (!countrySelect.closest('.row').hasClass('d-none') && (countrySelect.val() === null || countrySelect.val() === '')) {
+                showFieldError(countrySelect, '{{ translate('Please select your Country.') }}');
+                isValid = false;
+            }
+
+            // Validate District (state_id)
+            const stateSelect = $('select[name="state_id"]');
+            if (stateSelect.val() === null || stateSelect.val() === '') {
+                showFieldError(stateSelect, '{{ translate('Please select your District.') }}');
+                isValid = false;
+            }
+
+            // Validate Thana (city_id)
+            const citySelect = $('select[name="city_id"]');
+            if (citySelect.val() === null || citySelect.val() === '') {
+                showFieldError(citySelect, '{{ translate('Please select your Thana.') }}');
+                isValid = false;
+            }
+
+            // Validate Address
+            const addressTextarea = $('textarea[name="address"]');
+            if (addressTextarea.val().trim() === '') {
+                showFieldError(addressTextarea, '{{ translate('Please enter your address.') }}');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                $(el).prop('disabled', false); // Re-enable button if validation fails
+                AIZ.plugins.notify('danger', '{{ translate('Please fill in all required fields and correct errors.') }}'); // General notification
+                return false; // Stop submission
+            }
+
+            // If all basic fields are valid, proceed with other checks
+            if (minimum_order_amount_check && $('#sub_total').length && parseFloat($('#sub_total').val()) < minimum_order_amount) {
+                AIZ.plugins.notify('danger',
+                    '{{ translate('You order amount is less then the minimum order amount') }}');
                 $(el).prop('disabled', false);
+            } else {
+                var offline_payment_active = '{{ addon_is_activated('offline_payment') }}';
+                if (offline_payment_active == 'true' && $('.offline_payment_option').is(":checked") && $('#trx_id')
+                    .val() == '') {
+                    AIZ.plugins.notify('danger',
+                        '{{ translate('You need to put Transaction id') }}');
+                    $(el).prop('disabled', false);
+                } else {
+                    // All client-side checks passed, proceed with actual form submission
+                    $('#checkout-form').submit();
+                }
             }
         }
 
@@ -623,7 +724,7 @@
 
             $.ajax({
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-csrf-token"]').attr('content')
                 },
                 url: url,
                 type: 'GET',
@@ -633,12 +734,12 @@
                     AIZ.plugins.bootstrapSelect('refresh');
 
                     @if (get_setting('google_map') == 1)
-                    var lat     = -33.8688;
-                    var long    = 151.2195;
+                    var lat = -33.8688;
+                    var long = 151.2195;
 
                     if(response.data.address_data.latitude && response.data.address_data.longitude) {
-                        lat     = response.data.address_data.latitude;
-                        long    = response.data.address_data.longitude;
+                        lat = response.data.address_data.latitude;
+                        long = response.data.address_data.longitude;
                     }
 
                     initialize(lat, long, 'edit_');
@@ -650,11 +751,21 @@
         $(document).on('change', '[name=country_id]', function() {
             var country_id = $(this).val();
             get_states(country_id);
+            // Clear error if now valid
+            if (country_id) {
+                $(this).removeClass('is-invalid');
+                $(this).next('.invalid-feedback').text('').hide();
+            }
         });
 
         $(document).on('change', '[name=state_id]', function() {
             var state_id = $(this).val();
             get_city(state_id);
+            // Clear error if now valid
+            if (state_id) {
+                $(this).removeClass('is-invalid');
+                $(this).next('.invalid-feedback').text('').hide();
+            }
         });
 
         $(document).on('change', '[name=city_id]', function() {
@@ -664,10 +775,34 @@
             }, function(data){
                 $('#cart_summary').html(data.cart_summary);
             });
+            // Clear error if now valid
+            if (city_id) {
+                $(this).removeClass('is-invalid');
+                $(this).next('.invalid-feedback').text('').hide();
+            }
         });
 
+        // Clear errors on input change for text/textarea fields
+        $(document).on('input', '#name, input[name="phone"], textarea[name="address"]', function() {
+            if ($(this).val().trim() !== '') {
+                $(this).removeClass('is-invalid');
+                $(this).next('.invalid-feedback').text('').hide();
+            }
+        });
+
+        // Clear error on checkbox change
+        $(document).on('change', '#agree_checkbox', function() {
+            if ($(this).is(":checked")) {
+                $(this).removeClass('is-invalid');
+                $(this).next('.invalid-feedback').text('').hide();
+            }
+        });
+
+
         function get_states(country_id) {
-            $('[name="state"]').html("");
+            // $('[name="state_id"]').html('<option value="">{{ translate('Select District') }}</option>'); // Reset with default option
+            // $('[name="city_id"]').html('<option value="">{{ translate('Select Thana') }}</option>'); // Also reset city
+            AIZ.plugins.bootstrapSelect('refresh'); // Refresh selectpickers
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -680,7 +815,7 @@
                 success: function (response) {
                     var obj = JSON.parse(response);
                     if(obj != '') {
-                        $('[name="state_id"]').html(obj);
+                        $('[name="state_id"]').append(obj); // Use append to keep default option
                         AIZ.plugins.bootstrapSelect('refresh');
                     }
                 }
@@ -688,7 +823,8 @@
         }
 
         function get_city(state_id) {
-            $('[name="city"]').html("");
+            // $('[name="city_id"]').html('<option value="">{{ translate('Select Thana') }}</option>'); // Reset with default option
+            AIZ.plugins.bootstrapSelect('refresh'); // Refresh selectpicker
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -702,7 +838,7 @@
                     var obj = JSON.parse(response);
                     console.log(obj)
                     if(obj != '') {
-                        $('[name="city_id"]').html(obj);
+                        $('[name="city_id"]').append(obj); // Use append to keep default option
                         AIZ.plugins.bootstrapSelect('refresh');
                     }
                 }
@@ -710,15 +846,17 @@
         }
     </script>
 
-
     @if (get_setting('google_map') == 1)
         @include('frontend.partials.google_map')
     @endif
 
     <script type="text/javascript">
         $(document).ready(function() {
-            var country_id = $('[name=country_id]').val();
-            get_states(country_id);
+            // Initial call for states based on pre-selected country (if any)
+            var country_id_initial = $('[name=country_id]').val();
+            if (country_id_initial) {
+                get_states(country_id_initial);
+            }
         });
 
         function removeFromCartView(e, key){
@@ -741,7 +879,7 @@
             $('#login-modal').modal();
         }
 
-        // Country Code
+        // Country Code (Ensure #phone-code input exists if this is to be used)
         var isPhoneShown = true,
             countryData = window.intlTelInputGlobals.getCountryData(),
             input = document.querySelector("#phone-code");
@@ -753,28 +891,27 @@
             }
         }
 
-        var iti = intlTelInput(input, {
-            separateDialCode: true,
-            utilsScript: "{{ static_asset('assets/js/intlTelutils.js') }}?1590403638580",
-            onlyCountries: @php echo json_encode(\App\Models\Country::where('status', 1)->pluck('code')->toArray()) @endphp,
-            customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
-                if(selectedCountryData.iso2 == 'bd'){
-                    return "01xxxxxxxxx";
+        if (input) {
+            var iti = intlTelInput(input, {
+                separateDialCode: true,
+                utilsScript: "{{ static_asset('assets/js/intlTelutils.js') }}?1590403638580",
+                onlyCountries: @php echo json_encode(\App\Models\Country::where('status', 1)->pluck('code')->toArray()) @endphp,
+                customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
+                    if(selectedCountryData.iso2 == 'bd'){
+                        return "01xxxxxxxxx";
+                    }
+                    return selectedCountryPlaceholder;
                 }
-                return selectedCountryPlaceholder;
-            }
-        });
-
-        var country = iti.getSelectedCountryData();
-        $('input[name=country_code]').val(country.dialCode);
-
-        input.addEventListener("countrychange", function(e) {
-            // var currentMask = e.currentTarget.placeholder;
+            });
 
             var country = iti.getSelectedCountryData();
             $('input[name=country_code]').val(country.dialCode);
 
-        });
+            input.addEventListener("countrychange", function(e) {
+                var country = iti.getSelectedCountryData();
+                $('input[name=country_code]').val(country.dialCode);
+            });
+        }
 
         function toggleEmailPhone(el){
             if(isPhoneShown){
@@ -794,13 +931,13 @@
         }
 
         function display_option(key){
-
+            // This function is empty in the original script.
+            // Add functionality here if needed.
         }
+
         function show_pickup_point(el) {
             var value = $(el).val();
             var target = $(el).data('target');
-
-            // console.log(value);
 
             if(value == 'home_delivery'){
                 if(!$(target).hasClass('d-none')){

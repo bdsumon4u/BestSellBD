@@ -18,7 +18,7 @@
 
                 <!--Assign Delivery Boy-->
                 @if ($order->seller_id == $admin_user_id || get_setting('product_manage_by_admin') == 1)
-                    
+
                     @if (addon_is_activated('delivery_boy'))
                         <div class="col-md-3 ml-auto">
                             <label for="assign_deliver_boy">{{ translate('Assign Deliver Boy') }}</label>
@@ -122,7 +122,7 @@
                             </strong><br>
                             {{ json_decode($order->shipping_address)->email }}<br>
                             {{ json_decode($order->shipping_address)->phone }}<br>
-                            {{ json_decode($order->shipping_address)->address }}, {{ json_decode($order->shipping_address)->city }}, {{-- @if(isset(json_decode($order->shipping_address)->state)) {{ json_decode($order->shipping_address)->state }} - @endif {{ json_decode($order->shipping_address)->postal_code }} --}}<br>
+                            {{ json_decode($order->shipping_address)->address }}, {{ json_decode($order->shipping_address)->city }}, @if(($state = json_decode($order->shipping_address)->state) && $state != 'Default') {{ $state }} - @endif {{ json_decode($order->shipping_address)->postal_code }} <br>
                             {{ json_decode($order->shipping_address)->country }}
                         </address>
                     @else
